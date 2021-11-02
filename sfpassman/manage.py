@@ -17,7 +17,7 @@ def set_random_password(
 
     # use server-side binding to correctly quote any punctuation in the password
     # and to avoid the password appearing in the logs
-    snowflake.connector.paramstyle='qmark'
+    snowflake.connector.paramstyle = "qmark"
 
     conn = snowflake.connector.connect(
         user=admin_user,
@@ -42,8 +42,10 @@ def set_random_password(
 
 
 def generate_random_password() -> str:
+    NUM_CHARS = 32
+    logging.info(f"Generating {NUM_CHARS} character random password")
     alphabet = string.digits + string.ascii_letters + string.punctuation
-    return "".join(secrets.choice(alphabet) for _ in range(32))
+    return "".join(secrets.choice(alphabet) for _ in range(NUM_CHARS))
 
 
 def sm_put_secret(id: str, value: str) -> None:
