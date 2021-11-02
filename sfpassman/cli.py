@@ -37,7 +37,9 @@ def main(args: List[str] = sys.argv[1:]) -> None:
 
     admin_password = read_env_var("SNOWFLAKE_PASSWORD")
 
-    set_random_password(parsed.target_user, parsed.secret_id, parsed.admin_user, admin_password, parsed.account, parsed.region)
+    set_random_password(
+        parsed.target_user, parsed.secret_id, parsed.admin_user, admin_password, parsed.account, parsed.region
+    )
 
 
 if __name__ == "__main__":

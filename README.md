@@ -1,6 +1,33 @@
 # sfpassman
 
-Set snowflake passwords and store them in AWS Secrets Manager
+Set random generated snowflake user passwords and store them in AWS Secrets Manager
+
+## Usage
+
+```
+usage: sfpassman [-h] target_user secret_id admin_user account region
+
+Set a snowflake user's password in both secrets manager + snowflake to a
+random string.
+
+positional arguments:
+  target_user  Snowflake target user (to set password for)
+  secret_id    Secret ID for storing in Secret Manager
+  admin_user   Snowflake admin user (used to set the password)
+  account      Snowflake account
+  region       Snowflake user
+
+optional arguments:
+  -h, --help   show this help message and exit
+
+Admin user password is expected in the env var SNOWFLAKE_PASSWORD.
+```
+
+Example:
+
+```
+sfpassman snowflakeuser/PROD_JAFFLES_SA admin TX12345 ap-southeast-2
+```
 
 ## Development
 

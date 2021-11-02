@@ -7,7 +7,7 @@ long_description = Path("README.md").read_text()
 setup(
     name="sfpassman",
     version="0.0.0",
-    description="Set snowflake passwords and store them in AWS Secrets Manager",
+    description="Set random generated snowflake user passwords and store them in AWS Secrets Manager",
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires=">=3.7",
