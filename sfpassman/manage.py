@@ -14,6 +14,11 @@ def set_random_password(
     target_user: str, secret_id: str, admin_user: str, admin_password: str, account: str, region: str
 ) -> None:
     logging.info(f"Snowflake: connecting to {account}.{region} as user {admin_user}")
+
+    # use server-side binding to correctly quote any punctuation in the password
+    # and to avoid the password appearing in the logs
+    snowflake.connector.paramstyle='qmark'
+
     conn = snowflake.connector.connect(
         user=admin_user,
         role="SECURITYADMIN",
@@ -51,4 +56,4 @@ def sm_put_secret(id: str, value: str) -> None:
 
 
 def sf_set_password(conn: SnowflakeConnection, user: str, password: str) -> None:
-    conn.cursor().execute(f"ALTER USER {user} SET PASSWORD = '{password}';")
+    conn.cursor().execute(f"ALTER USER {user} SET PASSWORD = ?", (password,))
