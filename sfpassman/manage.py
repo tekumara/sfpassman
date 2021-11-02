@@ -16,7 +16,7 @@ def set_random_password(
     logging.info(f"Snowflake: connecting to {account}.{region} as user {admin_user}")
     conn = snowflake.connector.connect(
         user=admin_user,
-        role="USERADMIN",
+        role="SECURITYADMIN",
         password=admin_password,
         account=account,
         region=region,
