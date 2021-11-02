@@ -42,7 +42,7 @@ def set_random_password(
 
 
 def generate_random_password() -> str:
-    alphabet = string.printable
+    alphabet = string.digits + string.ascii_letters + string.punctuation
     return "".join(secrets.choice(alphabet) for _ in range(32))
 
 
