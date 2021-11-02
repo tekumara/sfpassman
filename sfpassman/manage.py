@@ -9,7 +9,7 @@ from snowflake.connector import SnowflakeConnection
 
 secret_manager_prefix = "snowflakeuser/"
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
 def set_random_password(target_user: str, admin_user: str, admin_password: str, account: str, region: str) -> None:
@@ -21,8 +21,8 @@ def set_random_password(target_user: str, admin_user: str, admin_password: str, 
         account=account,
         region=region,
         session_parameters={
-            'QUERY_TAG': 'sfpassman',
-        }
+            "QUERY_TAG": "sfpassman",
+        },
     )
 
     pw = generate_random_password()
@@ -34,19 +34,17 @@ def set_random_password(target_user: str, admin_user: str, admin_password: str, 
     logging.info(f"Snowflake: Setting password for {target_user}")
     sf_set_password(conn, target_user, pw)
 
-    logging.info(f"Success 🎉")
+    logging.info("Success 🎉")
 
 
 def generate_random_password() -> str:
     alphabet = string.printable
-    return ''.join(secrets.choice(alphabet) for _ in range(32))
+    return "".join(secrets.choice(alphabet) for _ in range(32))
 
 
 def sm_put_secret(id: str, value: str) -> None:
     aws_region = os.environ.get("AWS_DEFAULT_REGION")
-    secretsmanager = boto3.client(
-        "secretsmanager", region_name=aws_region
-    )
+    secretsmanager = boto3.client("secretsmanager", region_name=aws_region)
     secretsmanager.put_secret_value(
         SecretId=id,
         SecretString=value,
