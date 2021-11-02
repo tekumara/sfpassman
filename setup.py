@@ -15,7 +15,8 @@ setup(
     package_data={
         "": ["py.typed"],
     },
-    install_requires=[],
+    entry_points={"console_scripts": ["sfpassman = sfpassman.cli:main"]},
+    install_requires=["snowflake-connector-python==2.7.0", "boto3==1.19.7"],
     extras_require={
         "dev": [
             "black==21.10b0",
