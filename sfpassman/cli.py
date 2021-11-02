@@ -15,6 +15,7 @@ def argpaser() -> argparse.ArgumentParser:
     """
     parser = argparse.ArgumentParser(description=desc, epilog=epilog)
     parser.add_argument("target_user", type=str, help="Snowflake target user (to set password for)")
+    parser.add_argument("secret_id", type=str, help="Secret ID for storing in Secret Manager")
     parser.add_argument("admin_user", type=str, help="Snowflake admin user (used to set the password)")
     parser.add_argument("account", type=str, help="Snowflake account")
     parser.add_argument("region", type=str, help="Snowflake user")
@@ -36,7 +37,7 @@ def main(args: List[str] = sys.argv[1:]) -> None:
 
     admin_password = read_env_var("SNOWFLAKE_PASSWORD")
 
-    set_random_password(parsed.target_user, parsed.admin_user, admin_password, parsed.account, parsed.region)
+    set_random_password(parsed.target_user, parsed.secret_id, parsed.admin_user, admin_password, parsed.account, parsed.region)
 
 
 if __name__ == "__main__":

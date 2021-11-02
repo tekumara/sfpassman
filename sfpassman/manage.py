@@ -7,12 +7,12 @@ import boto3
 import snowflake.connector
 from snowflake.connector import SnowflakeConnection
 
-secret_manager_prefix = "snowflakeuser/"
-
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
-def set_random_password(target_user: str, admin_user: str, admin_password: str, account: str, region: str) -> None:
+def set_random_password(
+    target_user: str, secret_id: str, admin_user: str, admin_password: str, account: str, region: str
+) -> None:
     logging.info(f"Snowflake: connecting to {account}.{region} as user {admin_user}")
     conn = snowflake.connector.connect(
         user=admin_user,
@@ -27,7 +27,6 @@ def set_random_password(target_user: str, admin_user: str, admin_password: str, 
 
     pw = generate_random_password()
 
-    secret_id = secret_manager_prefix + target_user
     logging.info(f"Secrets Manager: setting secret {secret_id}")
     sm_put_secret(secret_id, pw)
 
