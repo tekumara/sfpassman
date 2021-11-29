@@ -44,7 +44,7 @@ def set_random_password(
 def generate_random_password() -> str:
     NUM_CHARS = 32
     logging.info(f"Generating {NUM_CHARS} character random password")
-    alphabet = string.digits + string.ascii_letters + string.punctuation
+    alphabet = string.digits + string.ascii_letters
     return "".join(secrets.choice(alphabet) for _ in range(NUM_CHARS))
 
 
